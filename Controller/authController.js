@@ -55,4 +55,13 @@ exports.loginAdmin = asyncHandler(async (req, res) => {
     }
     const otp = Math.floor(10000 + Math.random() * 9000000)
 
+    await Admin.findByIdAndDelete(result._id,{otp})
+    await SendEmail({
+        to: email,
+        subject: "Login OTP",
+        message: `
+        <h1>Do Not Share Your Account Otp</h1>
+        <p>Your Login Otp</p>`
+
+})
 })
