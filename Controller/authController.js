@@ -62,6 +62,6 @@ exports.loginAdmin = asyncHandler(async (req, res) => {
         message: `
         <h1>Do Not Share Your Account Otp</h1>
         <p>Your Login Otp</p>`
+    })
 
-})
 })
