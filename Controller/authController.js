@@ -125,9 +125,13 @@ exports.regiterUser = asyncHandler(async (rea, res) => {
     if (!validator.isStrongPassword(password)) { return res.status(400).json({ message: "Invalid password" }) }
     if (!validator.isStrongPassword(cpassword)) { return res.status(400).json({ message: "Invalid cpassword" }) }
     if (password !== cpassword) { return res.status(400).json({ message: "password do match" }) }
+    const result=await User.findOne({email})
+    if(!result){
+        return res.status(400).json({ message: "alread hane this email" })
+    }
     const hash = await bcrypt.hash(password, 10)
     await User.create({ name, mobile, email, password: hash })
-    res.status(200).json({ message: "user Register Success" })
+    res.json({ message: "user Register Success" })
 })
 
 exports.loginUser = asyncHandler(async (req, res) => {
